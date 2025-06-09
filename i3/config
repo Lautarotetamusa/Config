@@ -51,13 +51,17 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
-
 #start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun -theme $HOME/.config/rofi/launchers/type-3/style-10.rasi
 
+# bindsym Print exec "scrot -s ~/a.png"
+
 #Screenshot y copiar al clipboard
-bindsym Print exec "scrot -e 'mv $f ~/tmp &&  xclip -selection clipboard -t image/png -i ~/tmp/$n'; sleep 1; exec notify-send 'screenshot has been saved to ~/tmp'"
-bindsym $mod+Print exec --release --no-startup-id scrot -s ~/test.png
+# scrot -s -e 'xclip -selection clipboard -t image/png -i $f'
+#bindsym Print exec "scrot -e 'mv $f ~/tmp &&  xclip -selection clipboard -t image/png -i ~/tmp/$n'; sleep 1; exec notify-send 'screenshot has been saved to ~/tmp'"
+#bindsym $mod+Print exec --release --no-startup-id scrot -s ~/test.png
+
+bindsym --release Print exec scrot -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -91,7 +95,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -102,7 +106,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+a focus parento
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -110,51 +114,58 @@ bindsym $mod+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1 "
-set $ws2 "2 "
+set $wsWeb "2 "
 set $ws3 "3 "
-set $ws4 "4 "
+set $wsUtil "4 Util"
 set $ws5 "5 "
-set $ws6 "6 Cura"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+set $wsNotes "Notes"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
+bindsym $mod+2 workspace $wsWeb
 bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
+bindsym $mod+4 workspace $wsUtil
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
+# Obsidian
+bindsym $mod+n workspace $wsNotes
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+2 move container to workspace $wsWeb
 bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+4 move container to workspace $wsUtil
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace number $ws6
 bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+n move container to workspace $wsNotes
 
 #Para pesta�ar particulares
 #for_window [class="discord"] move to workspace $ws5
 assign [class="discord"] $ws5
 assign [class="Code"] $ws3
 assign [class="Chromium"] $ws10
-assign [class="firefox"] $ws2
-assign [class="Ultimaker-Cura"] $ws6
+assign [class="firefox"] $wsWeb
+
+assign [class="Postman"] $wsUtil
+assign [class="obs"] $wsUtil
+
+assign [class="obsidian"] $wsNotes
 
 #minecraft
-assign [class="org-tlauncher-tlauncher-rmo-TLauncher"] $ws4
-assign [class="Minecraft*"] $ws4
+assign [class="org-tlauncher-tlauncher-rmo-TLauncher"] $wsUtil
+assign [class="Minecraft*"] $wsUtil
 
 #Automaticamente poner workspaces en monitores especificos
 set $monitor1 = HDMI-1
@@ -165,7 +176,7 @@ exec xrandr --output VGA-1 --auto --pos 0x312 --left-of HDMI-1 --output HDMI-1 -
 
 workspace $ws5 output $monitor2
 workspace $ws3 output $monitor1
-workspace $ws4 output $monitor1
+workspace $wsUtil output $monitor1
 
 #Moverse al worspace anterior y al siguiente
 bindsym $mod+Tab workspace next
