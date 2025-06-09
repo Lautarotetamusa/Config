@@ -160,6 +160,7 @@ assign [class="firefox"] $wsWeb
 
 assign [class="Postman"] $wsUtil
 assign [class="obs"] $wsUtil
+assign [class="pavucontrol"] $wsUtil
 
 assign [class="obsidian"] $wsNotes
 
