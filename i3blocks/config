@@ -1,0 +1,41 @@
+border_right=0
+border_left=0
+border_top=0
+border_bottom=3
+
+separator=false
+align=center
+
+[volume]
+#command="$HOME"/.config/i3blocks/volume.sh
+label=♪ 
+command=echo " 15%"
+interval=once
+signal=10
+#color=#5c6370
+#border=#ff7752
+#STEP=5%
+#MIXER=[determined automatically]
+#SCONTROL=[determined automatically]
+#NATURAL_MAPPING=0
+color=#56b6c2
+border=#56b6c2
+
+[ram]
+label=
+command=echo " $($HOME/.config/i3blocks/memory.sh)"
+interval=5
+color=#d19a66
+
+border=#d19a66
+
+
+[time]
+label=
+command=echo " $(date +'%a %d %b') $(date +%T)"
+interval=1
+#min_width=124
+color=#e06c75
+
+border=#e06c75
+
